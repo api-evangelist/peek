@@ -1,0 +1,15 @@
+# Peek Reseller API
+
+## Peek Reseller API
+
+- [Introduction](https://octodocs.peek.com/introduction.md): For resellers looking to sell products on the Peek OCTO API platform
+- [Basics](https://octodocs.peek.com/getting-started/basics.md): What you need to do to do your first request
+- [Request Access](https://octodocs.peek.com/getting-started/request-access.md): How to request access to Peek's OCTO API
+- [Headers](https://octodocs.peek.com/getting-started/headers.md): Pass these in your API calls
+- [Capabilities](https://octodocs.peek.com/getting-started/capabilities.md): How to use core extensions
+- [Errors](https://octodocs.peek.com/getting-started/errors.md)
+- [Products](https://octodocs.peek.com/booking-flow/products.md): List available products for purchase
+- [Availability](https://octodocs.peek.com/booking-flow/availability.md): Getting availability for a product
+- [Booking](https://octodocs.peek.com/booking-flow/booking.md): Reserving availability and making a booking
+- [Pricing](https://octodocs.peek.com/capabilities/pricing.md): Provides pricing information to various endpoints
+- [Webhooks](https://octodocs.peek.com/capabilities/webhooks.md): Get notifications sent to you when something changes

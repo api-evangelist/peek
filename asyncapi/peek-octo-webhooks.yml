@@ -1,0 +1,84 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/capabilities/webhooks
+type: webhook-catalog
+asyncapi_published: false
+note: >-
+  Peek publishes no AsyncAPI document, no event catalog and no streaming surface. It does publish a real,
+  programmable webhook capability as part of its OCTO implementation (`octo/webhooks`), captured here
+  verbatim from Peek's own documentation. No AsyncAPI was authored on Peek's behalf.
+capability:
+  id: octo/webhooks
+  docs: https://octodocs.peek.com/capabilities/webhooks
+  description: >-
+    Programmatically create webhooks to listen for booking confirmations, updates and cancellations.
+management_api:
+  base_url: https://octo.peek.com/integrations/octo
+  operations:
+  - method: POST
+    path: /webhooks
+    summary: Create a new webhook
+    request_body:
+    - name: url
+      type: string
+      required: true
+      description: >-
+        The URL to call when the webhook is triggered. A fully formed URL; HTTP basic auth credentials
+        embedded in the URL are supported (https://user:pass@example.com/webhook).
+    - name: event
+      type: string
+      required: true
+      description: The event that will trigger the webhook.
+    response_example: '{"id":"octohook_123","event":"booking_update","url":"https://example.com/webhooks/booking_update"}'
+  - method: GET
+    path: /webhooks
+    summary: Return a list of all existing webhooks
+  - method: DELETE
+    path: /webhooks/:id
+    summary: Delete a webhook
+events:
+- name: booking_update
+  trigger: Triggered when an existing booking is confirmed, updated or cancelled.
+  delivery:
+    method: POST
+    content_type: application/json
+    target: the subscriber URL registered on the webhook
+  payload_shape:
+    webhook: {id: string, event: string, url: string}
+    booking:
+      uuid: string (booking UUID)
+      testMode: boolean
+      resellerReference: string|null
+      supplierReference: string
+      status: ON_HOLD | EXPIRED | CONFIRMED | CANCELLED
+      utcExpiresAt: ISO 8601 datetime|null
+      utcConfirmedAt: ISO 8601 datetime|null
+      productId: string
+      optionId: string
+      cancellable: boolean
+      cancellation: '{reason, refund: FULL|PARTIAL|NONE, utcCancelledAt}|null'
+      freesale: boolean
+      notes: string|null
+      availability: '{id, localDateTimeStart, localDateTimeEnd, allDay, openingHours}'
+      contact: '{fullName, emailAddress, phoneNumber, locales, country}'
+      voucher: '{redemptionMethod, utcRedeemedAt, deliveryOptions[]}'
+      unitItems: '[{uuid, resellerReference, supplierReference, unitId, ticket}]'
+event_count: 1
+security:
+  signature_verification: false
+  shared_secret: false
+  note: >-
+    No webhook signature header, HMAC secret or replay protection is documented. The only authentication
+    mechanism Peek offers the subscriber is HTTP basic credentials embedded in the callback URL, which
+    authenticates Peek to the subscriber but does not prove payload integrity.
+delivery_semantics:
+  retries: undocumented
+  ordering: undocumented
+  deduplication: undocumented
+testing:
+  guidance: >-
+    Peek recommends using ngrok (https://ngrok.com/) to expose a localhost endpoint, then making test
+    bookings with the same credentials to observe webhook requests arrive.
+gaps:
+- Exactly one event type (booking_update) — product, availability and pricing changes are not eventable.
+- No signing, no retry/redelivery policy, no delivery log or replay endpoint documented.

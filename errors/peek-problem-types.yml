@@ -1,0 +1,74 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/getting-started/errors
+format: bespoke-json
+envelope:
+  content_type: application/json
+  fields:
+  - name: error
+    description: The machine-readable error code.
+    required: true
+  - name: errorMessage
+    description: A human readable error message.
+    required: true
+  contextual_fields: >-
+    Specific error codes add the offending value as an extra top-level member — productId, optionId,
+    unitId, availabilityId, uuid — so a client can identify which input was rejected.
+  example: |
+    {
+        "error": "INVALID_PRODUCT_ID",
+        "errorMessage": "The Product ID was invalid or missing",
+        "productId": "av_123"
+    }
+status_code_model: >-
+  Peek documents a two-value status model for the OCTO API: 200 OK when everything went ok, 400 Bad
+  Request when it did not, with the error code in the body rather than the status line. In practice the
+  live host also returns 401 for a missing key (observed 2026-08-26 on
+  GET https://octo.peek.com/integrations/octo/products) and the docs state 403 Forbidden for an invalid
+  or revoked token — so the documented model is narrower than the deployed behaviour.
+rfc9457: false
+problem_types:
+- code: INVALID_PRODUCT_ID
+  title: Missing or invalid productId in the request
+  extra_fields: [productId]
+  remediation: Re-fetch the product list and use a productId returned by /products.
+- code: INVALID_OPTION_ID
+  title: Missing or invalid optionId in the request
+  extra_fields: [optionId]
+  remediation: Use an optionId from the product's options[] array. Peek currently returns one option per product.
+- code: INVALID_UNIT_ID
+  title: Missing or invalid unitId in the request
+  extra_fields: [unitId]
+  remediation: Use a unitId from the selected option's units[] array.
+- code: INVALID_AVAILABILITY_ID
+  title: Missing or invalid availabilityId in the request
+  extra_fields: [availabilityId]
+  remediation: >-
+    availabilityIds are time-bound. Re-run POST /octo/availability for the date and use a freshly
+    returned availabilityId.
+- code: INVALID_BOOKING_UUID
+  title: Missing or invalid booking uuid, or the booking has already expired
+  extra_fields: [uuid]
+  remediation: >-
+    Save the uuid returned by the reservation call. If the booking was ON_HOLD past utcExpiresAt it has
+    EXPIRED — re-reserve, or call /bookings/:uuid/extend before the hold lapses.
+- code: BAD_REQUEST
+  title: Request body malformed, required fields missing, or data types incorrect
+  remediation: Validate the request body against the documented schema; all POST/PATCH/DELETE bodies must be JSON with Content-Type application/json.
+- code: UNPROCESSABLE_ENTITY
+  title: Request is technically correct but cannot be processed
+  remediation: >-
+    Business-rule rejection. Peek's own example is cancelling a booking after the cancellation cutoff has
+    elapsed — check booking.cancellable before attempting a cancel or update.
+- code: INTERNAL_SERVER_ERROR
+  title: Backend server is down or there is a network outage
+  remediation: Retry with backoff. Peek publishes no status page to check against.
+- code: UNAUTHORIZED
+  title: No API key sent in the Authorization header to an endpoint that requires authentication
+  remediation: Send Authorization; Bearer <OCTO API Key>. Observed live with HTTP 401.
+- code: FORBIDDEN
+  title: API key invalid, revoked, or lacking access to the endpoint/resource
+  remediation: Request a new OCTO API Key from Peek. Documented as HTTP 403.
+gaps:
+- No error code is documented for rate limiting or throttling; no 429 semantics are published.
+- Errors are not modelled as RFC 9457 problem+json, so a generic problem-details client cannot parse them.

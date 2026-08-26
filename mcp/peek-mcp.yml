@@ -1,0 +1,70 @@
+generated: '2026-08-26'
+method: probed
+source: https://mcp.peek.com (MCP initialize + tools/list, anonymous) — announced at https://github.com/peek-travel/mcp-intro and https://peek.com/mcp
+status: published
+deployment:
+  mode: remote
+  endpoint: https://mcp.peek.com
+  auth: none
+  verified: probed
+server:
+  name: Experiences MCP
+  registry_name: com.peek/mcp
+  version: 1.0.0
+  transport: streamable-http
+  protocol_version: '2025-03-26'
+  registry_manifest: https://github.com/peek-travel/mcp-intro/blob/main/server.json
+  registry_schema: https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json
+  public_page: https://peek.com/mcp
+  description: >-
+    Build travel itineraries with Peek's 300k+ experiences. Search, details, and availability.
+  open_source: false
+  notes: >-
+    Peek states the server is a proprietary hosted service; only the server.json manifest and README are
+    published. Peek describes it as the travel industry's first remote MCP server for AI assistants.
+capabilities:
+  tools: true
+  resources: false
+  prompts: false
+tools_file: mcp/peek-mcp-tools.json
+tool_count: 6
+tools:
+- name: search_experiences
+  description: >-
+    Search for travel experiences with comprehensive filtering options. Returns available categories,
+    tags, and regions with IDs for further filtering.
+  required: []
+  parameters: [query, regionId, categoryId, tagId, latLng, startDate, endDate]
+- name: experience_details
+  description: Get detailed information about a specific experience by ID
+  required: [id]
+  parameters: [id]
+- name: experience_availability
+  description: >-
+    Get availability information for a specific experience including dates, times, and pricing
+  required: [id, quantity, startDate, endDate]
+  parameters: [id, quantity, startDate, endDate]
+- name: search_regions
+  description: Search for regions by name
+  required: []
+  parameters: [query, limit]
+- name: list_tags
+  description: List all category tags
+  required: []
+  parameters: []
+- name: render_activity_tiles
+  description: Render activity tiles for a list of activity IDs, returning an embeddable widget URI
+  required: [id]
+  parameters: [id]
+x-evidence:
+- url: https://mcp.peek.com
+  method: POST initialize
+  http_status: 200
+  result: 'serverInfo: Experiences MCP 1.0.0, protocolVersion 2025-03-26, capabilities.tools present'
+- url: https://mcp.peek.com
+  method: POST tools/list
+  http_status: 200
+  result: 6 tools returned with full inputSchema; no authentication required
+- url: https://github.com/peek-travel/mcp-intro/blob/main/server.json
+  http_status: 200
+  result: MCP registry server.json declaring remotes[0] streamable-http https://mcp.peek.com

@@ -1,0 +1,97 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  npm registry metadata (registry.npmjs.org), hex.pm API, and the peek-travel GitHub organization
+  (https://github.com/peek-travel)
+packages:
+- language: typescript
+  registry: npm
+  name: '@peektravel/app-utilities'
+  url: https://www.npmjs.com/package/@peektravel/app-utilities
+  repository: https://github.com/peek-travel/app-utilities
+  install: npm install @peektravel/app-utilities
+  official: true
+  version: 0.7.4
+  published: '2026-08-20'
+  first_published: '2026-06-23'
+  license: MIT
+  description: >-
+    Typed client for the Peek Pro "backoffice" GraphQL gateway used by Peek apps — PeekAccessService plus
+    per-resource services (products, account users, resource pools, timeslots, resellers, promo codes).
+    Mints and caches a short-lived JWT; ships dual ESM+CJS with bundled .d.ts and an llms.txt.
+- language: typescript
+  registry: npm
+  name: '@peektravel/app-cli'
+  url: https://www.npmjs.com/package/@peektravel/app-cli
+  repository: https://github.com/peek-travel/app-cli
+  install: npm install -g @peektravel/app-cli
+  binary: peek
+  official: true
+  version: 0.7.5
+  published: '2026-07-30'
+  first_published: '2026-07-08'
+  license: MIT
+  description: CLI for scaffolding, developing, and publishing Peek apps.
+- language: typescript
+  registry: npm
+  name: n8n-nodes-peek-pro
+  url: https://www.npmjs.com/package/n8n-nodes-peek-pro
+  repository: https://github.com/peek-travel/n8n-nodes-peek-pro
+  install: npm install n8n-nodes-peek-pro
+  official: true
+  version: 0.4.3
+  published: '2026-07-23'
+  first_published: '2025-11-25'
+  license: MIT
+  description: >-
+    n8n community node for the Peek Pro connector app. Published from the peek-travel org; the npm
+    description field still carries the scaffold text "n8n community node to work with the Example API".
+- language: elixir
+  registry: github
+  name: peek_app_sdk
+  url: https://github.com/peek-travel/peek_app_sdk
+  repository: https://github.com/peek-travel/peek_app_sdk
+  install: '{:peek_app_sdk, github: "peek-travel/peek_app_sdk"}'
+  official: true
+  version: null
+  published: null
+  note: >-
+    First-party Elixir SDK for Peek app authentication, embedding and webhook handling. Checked hex.pm
+    2026-08-26 — https://hex.pm/api/packages/peek_app_sdk returns 404, so the package is not published to
+    a registry and has no registry version/date to record. Last GitHub push 2026-04-29.
+- language: elixir
+  registry: github
+  name: phoenix_starter_kit
+  url: https://github.com/peek-travel/phoenix_starter_kit
+  install: 'git clone https://github.com/peek-travel/phoenix_starter_kit'
+  official: true
+  version: null
+  published: null
+  note: >-
+    Elixir/Phoenix starter kit for building a Peek Pro app; a template repository, not a registry
+    package, so there is no version metadata endpoint. Last GitHub push 2026-08-26.
+open_source_libraries:
+  note: >-
+    The peek-travel org also publishes general-purpose Elixir libraries to hex.pm that are not clients of
+    the Peek API. They are recorded for provenance only and are NOT counted as API SDKs.
+  entries:
+  - registry: hex
+    name: cocktail
+    version: 0.10.3
+    published: '2024-01-03'
+    url: https://hex.pm/packages/cocktail
+  - registry: hex
+    name: ecto_diff
+    version: 0.5.1
+    published: '2024-01-03'
+    url: https://hex.pm/packages/ecto_diff
+  - registry: hex
+    name: excal
+    version: 0.3.2
+    published: '2019-06-16'
+    url: https://hex.pm/packages/excal
+gaps:
+- >-
+  There is NO published client library for the Peek Reseller API (OCTO) in any registry. Every first-party
+  package targets the Peek app platform (GraphQL gateway / app scaffolding), not the OCTO REST surface.
+  Resellers implement OCTO directly against https://octo.peek.com/integrations/octo.

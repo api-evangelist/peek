@@ -1,0 +1,68 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/getting-started/basics + https://octodocs.peek.com/getting-started/request-access + live probe of https://octo.peek.com/integrations/octo/products
+docs: https://octodocs.peek.com/getting-started/basics
+apis:
+- api: Peek Reseller API (OCTO)
+  base_url: https://octo.peek.com/integrations/octo
+  schemes:
+  - name: octoApiKey
+    type: http
+    scheme: bearer
+    in: header
+    header: Authorization
+    format: 'Bearer <OCTO API Key>'
+    example_shape: UUID v4 (Peek's doc example is a UUID)
+    applies_to: all operations
+    rotation: Peek can revoke a key server-side; no self-service rotation endpoint is documented.
+    provisioning:
+      self_service: false
+      method: email request
+      contact: ben.smithart@peek.com
+      docs: https://octodocs.peek.com/getting-started/request-access
+      note: >-
+        "To request access, please send an email to ben.smithart@peek.com. Peek Pro's Product team will
+        reach out to you shortly." There is no developer signup, no console, and no published SLA on
+        turnaround. This is a sales-gated credential.
+  transport_requirements:
+  - All communication must be sent over HTTPS.
+  - 'POST, PATCH and DELETE requests must send Content-Type: application/json.'
+  failure_modes:
+  - condition: no Authorization header
+    status: 401
+    body: '{"errorMessage":"Missing `Authentication` header or key could not be validated","error":"UNAUTHORIZED"}'
+    observed: '2026-08-26 live against https://octo.peek.com/integrations/octo/products'
+  - condition: token invalid or deactivated
+    status: 403
+    error: FORBIDDEN
+    observed: documented
+  oauth2: false
+  scopes: false
+  mtls: false
+- api: Peek Experiences MCP Server
+  base_url: https://mcp.peek.com
+  schemes:
+  - name: none
+    type: none
+    applies_to: all tools
+    note: >-
+      Verified anonymously 2026-08-26: initialize and tools/list both returned 200 with no credential and
+      no OAuth challenge. Peek's README describes it as "a free service". No
+      /.well-known/oauth-protected-resource is served (the transport 406s on GET).
+  oauth2: false
+- api: Peek app platform GraphQL gateway (private)
+  base_url: null
+  schemes:
+  - name: appJwt
+    type: http
+    scheme: bearer
+    format: HS256 JWT signed with a per-install shared secret (installId as subject, app name as issuer)
+    additional_header: 'pk-api-key (gateway key)'
+    note: >-
+      Documented only inside the first-party @peektravel/app-utilities package README/llms.txt. The
+      gateway URL is not a fixed public host — it is the `apiUrl` delivered on the install webhook, so
+      there is no public base URL to record. Not a publicly callable API; captured for completeness.
+  oauth2: false
+gaps:
+- No OAuth 2.0, no OIDC, no scopes, no mutual TLS anywhere on the public surface.
+- No self-service API key issuance; access to the OCTO API is granted by a human over email.

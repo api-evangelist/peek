@@ -1,0 +1,44 @@
+generated: '2026-08-26'
+method: searched
+source: https://github.com/peek-travel/app-cli (README) + https://www.npmjs.com/package/@peektravel/app-cli
+cli:
+  name: Peek App CLI
+  binary: peek
+  package: '@peektravel/app-cli'
+  version: 0.7.5
+  published: '2026-07-30'
+  license: MIT
+  runtime: Node.js 20 or newer
+  scope: >-
+    Scaffolding, local development and publishing of apps for the Peek platform (Peek Pro app registry).
+    It does NOT wrap the OCTO Reseller API.
+install:
+- npm install -g '@peektravel/app-cli'
+commands:
+- command: peek init [app-name]
+  description: >-
+    Scaffold a new app from a bundled starter template, register it in the Peek app registry, and start
+    developing. Scaffolds a Next.js project with no network fetch and no repo clone.
+- command: peek dev
+  description: >-
+    Run the app in the current directory behind a public Cloudflare quick tunnel, syncing the ephemeral
+    tunnel URL to the registry as the test app's base_url.
+- command: peek sync-app <file>
+  description: Push an app.json to the registry, or --pull the registry version.
+- command: peek extensions list
+  description: >-
+    List the extensions apps can plug into. --platform peek|acme|cng scopes the list; --json for scripting.
+- command: peek extensions show <slug>
+  description: 'Show one extension''s type, platforms and configurable fields (e.g. booking_portal@v1).'
+- command: peek auth login / peek auth logout
+  description: Sign in to / out of the Peek app registry.
+- command: peek auth whoami
+  description: Show which account you are signed in as, and against which registry.
+flags:
+  note: 'Run `peek <command> --help`; documented flags include --port, --platform, --no-sync.'
+credentials:
+  file: .env.local
+  variables: [PEEK_APP_SECRET, PEEK_APP_URL]
+  note: >-
+    The CLI ensures .env.local is gitignored; Peek's README warns that `peek dev` makes the local dev
+    server publicly reachable at an unauthenticated *.trycloudflare.com URL for the duration of the run.

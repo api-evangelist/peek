@@ -1,0 +1,90 @@
+generated: '2026-08-26'
+method: searched
+source: live GET probes of /.well-known/* on every Peek host in apis.yml
+hit_count: 1
+hosts:
+- host: https://www.peekpro.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: peek-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://octo.peek.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.peek.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://octodocs.peek.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://mcp.peek.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 406
+  - path: /.well-known/oauth-protected-resource
+    status: 406
+  - path: /.well-known/agent-card.json
+    status: 406
+notes:
+- >-
+  www.peekpro.com/.well-known/security.txt is a real RFC 9116 document (147 bytes, text/plain) and is the
+  only .well-known hit anywhere on Peek's estate. Saved verbatim as peek-security.txt.
+- >-
+  octo.peek.com answers unknown paths with a JSON:API 404 envelope
+  ({"jsonapi":{"version":"1.0"},"errors":[{"detail":"Not found","status":"404"}]}), so its negatives are
+  genuine 404s rather than a catch-all 200.
+- >-
+  mcp.peek.com is an MCP transport, not a web server: every GET returns HTTP 406 with JSON-RPC error
+  -32600 "Accept header must include text/event-stream". It cannot serve .well-known documents, so the
+  MCP server publishes no OAuth metadata — consistent with it being an unauthenticated public server.
+- >-
+  developers.peek.com, docs.peek.com and developer.peek.com all return HTTP 200 with an identical
+  23,049-byte "Peek Pro in Maintenance" HTML page — a wildcard catch-all, NOT a docs host. They are not
+  treated as surfaces. api.peek.com returns a 67-byte unrelated text body on every path.

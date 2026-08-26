@@ -1,0 +1,101 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://octodocs.peek.com/ (Peek Reseller API docs, incl. llms.txt/llms-full.txt), live probes of
+  https://octo.peek.com/integrations/octo and https://mcp.peek.com
+standards:
+- id: octo
+  name: OCTO (Open Connectivity for Tourism)
+  domain_standard: true
+  conforms: true
+  version: core specification + optional capabilities
+  evidence: >-
+    Peek's own documentation opens with "This documentation details Peek Pro's implementation of the OCTO
+    API spec, which is an open API standard initiative for the experiences industry. We have implemented
+    the core specification along with a few optional capabilities". The contract signature is visible on
+    the wire and in the docs: the capability identifiers `octo/pricing` and `octo/webhooks`, the
+    `Octo-Capabilities` and `Octo-Env` response headers, the OCTO Reseller/Supplier/Product/Option/Unit/
+    UnitItem/Voucher object model, and the OCTO booking lifecycle (reserve -> confirm -> extend/cancel)
+    at https://octo.peek.com/integrations/octo/*.
+  spec_location: https://octodocs.peek.com/introduction
+  standard_url: https://www.octo.travel/
+  capabilities_implemented:
+  - id: octo/pricing
+    docs: https://octodocs.peek.com/capabilities/pricing
+  - id: octo/webhooks
+    docs: https://octodocs.peek.com/capabilities/webhooks
+  capability_versioning: >-
+    Capabilities carry an auto-incrementing `revision` integer. Peek states capabilities will NEVER
+    introduce breaking changes; a breaking change ships as a new capability id (e.g. octo/pricing2).
+  note: >-
+    Peek enables the full capability list on every request; there is currently no mechanism for a reseller
+    to select which capabilities are active.
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  version: '2025-03-26'
+  evidence: >-
+    POST initialize to https://mcp.peek.com returned 200 with serverInfo {"name":"Experiences MCP",
+    "version":"1.0.0"} and protocolVersion 2025-03-26; tools/list returned 6 tools with JSON Schema
+    inputSchema. The server is also published as an MCP registry manifest against
+    https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json at
+    https://github.com/peek-travel/mcp-intro/blob/main/server.json (transport: streamable-http).
+- id: rfc9116
+  name: security.txt
+  conforms: true
+  evidence: >-
+    https://www.peekpro.com/.well-known/security.txt returns 200 with Contact, Expires (2027-05-19),
+    Preferred-Languages and Canonical fields.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    The OCTO error envelope is a bespoke JSON object {error, errorMessage, ...contextual fields}, served
+    as application/json with HTTP 400 for every failure class. No application/problem+json, no type/title/
+    status/detail members. Confirmed live: GET https://octo.peek.com/integrations/octo/products without
+    credentials returns {"errorMessage":"Missing `Authentication` header or key could not be validated",
+    "error":"UNAUTHORIZED"}.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    Authentication is a static bearer API key issued by Peek on request (Authorization: Bearer <OCTO API
+    Key>). No authorization server, no token endpoint, no scopes. /.well-known/oauth-authorization-server
+    404s on every Peek host.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every Peek host probed.
+- id: http_bearer
+  name: RFC 6750 Bearer Token usage
+  conforms: true
+  evidence: >-
+    "OCTP uses Bearer authentication ... Authorization: Bearer <key>" with HTTP 403 Forbidden on an
+    invalid or deactivated token (https://octodocs.peek.com/getting-started/basics).
+- id: iso8601
+  name: ISO 8601 date/time
+  conforms: true
+  evidence: >-
+    Booking timestamps are ISO 8601 (utcExpiresAt, utcConfirmedAt, utcCancelledAt, localDateTimeStart);
+    date parameters are YYYY-MM-DD across both the OCTO API and the MCP tool schemas.
+- id: pagination
+  name: Pagination
+  conforms: false
+  evidence: >-
+    No pagination scheme is documented anywhere in the Peek Reseller API docs. Product and booking list
+    endpoints return unbounded collections. (Cursor pagination does exist inside the private app-platform
+    GraphQL gateway per @peektravel/app-utilities, but that gateway is not a public API.)
+- id: idempotency
+  name: Idempotency keys
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or equivalent is documented. The booking flow instead uses a
+    reserve-then-confirm two-phase model with a server-issued booking uuid.
+compliance:
+  certifications_published: []
+  trust_center: null
+  note: >-
+    No trust center, SOC 2 / ISO 27001 / PCI page or named certification was found on peek.com or
+    peekpro.com during this pass. Peek Pro processes card payments, so a PCI posture almost certainly
+    exists — it is simply not published on a public page we could reach, so nothing is asserted here and
+    no Compliance pointer is emitted.

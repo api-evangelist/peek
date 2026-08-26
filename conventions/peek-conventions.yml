@@ -1,0 +1,126 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/ (getting-started/basics, headers, capabilities, errors; booking-flow/*)
+api: Peek Reseller API (OCTO)
+auth_style:
+  type: bearer
+  header: Authorization
+  cross_ref: authentication/peek-authentication.yml
+content_type:
+  request: application/json (required on POST, PATCH, DELETE)
+  response: application/json on every endpoint unless otherwise stated
+  transport: HTTPS required
+request_headers:
+- name: Content-Type
+  required: true
+  note: Must be application/json for all POST, PATCH and DELETE requests.
+- name: Octo-Capabilities
+  required: false
+  note: >-
+    Comma-separated capability ids to initialise for the request, e.g. "octo/pricing, octo/webhooks".
+    Peek enables the full capability list on every request regardless, so this is advisory today.
+response_headers:
+- name: Octo-Capabilities
+  note: Echoes the capabilities that were actually initialised for the request.
+- name: Octo-Env
+  note: Returns `test` if the request was in test mode, or `live` if it was not.
+versioning:
+  scheme: capability-revision
+  url_versioning: false
+  header_versioning: false
+  detail: >-
+    There is no version segment in the path and no version header. Evolution is expressed through OCTO
+    capabilities, each carrying an auto-incrementing `revision` integer. Peek states capability revisions
+    are ALWAYS backward compatible and that a breaking change ships as an entirely new capability id
+    (their example: octo/pricing2). Cross-ref lifecycle/peek-lifecycle.yml.
+pagination:
+  supported: false
+  detail: >-
+    No pagination scheme is documented for any Peek Reseller API endpoint. GET /products and
+    GET /bookings return unbounded collections. This is a real gap for large supplier catalogs.
+filtering:
+  detail: >-
+    GET /bookings supports lookup filters; POST /availability and POST /availability/calendar take
+    productId + optionId + a localDateStart/localDateEnd range. The calendar endpoint is cached and
+    returns one object per day; the availability endpoint returns one object per departure time and is
+    the one that yields the availabilityId needed to book.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: partial
+  detail: >-
+    Free-text `notes` on a booking, plus `resellerReference` on the booking and on each unitItem for the
+    caller's own correlation id. No arbitrary key/value metadata object.
+request_id_tracing:
+  supported: false
+  detail: No request-id or correlation header is documented on the OCTO surface.
+error_envelope:
+  shape: '{ error, errorMessage, <contextual field> }'
+  rfc9457: false
+  cross_ref: errors/peek-problem-types.yml
+rate_limit_signaling:
+  supported: unknown
+  detail: >-
+    No rate limits, no rate-limit response headers and no 429 semantics are documented anywhere in the
+    Peek Reseller API docs. Cross-ref rate-limits/peek-rate-limits.yml.
+idempotency:
+  supported: false
+  header: null
+  detail: >-
+    No Idempotency-Key header or equivalent is documented. Safety on the write path is instead structural:
+    booking creation is a two-phase reserve-then-confirm flow. POST /bookings puts availability ON_HOLD
+    and returns a server-issued booking `uuid`; nothing is sold until POST /bookings/:uuid/confirm is
+    called against that uuid. A retried confirm targets the same uuid, so the confirm step is naturally
+    idempotent, but the reserve step is NOT — a retried POST /bookings creates a second hold.
+  grade: absent
+dry_run_mode:
+  supported: partial
+  detail: >-
+    There is no dry-run parameter, but there is a full test mode: bookings carry `testMode: true` and
+    every response echoes `Octo-Env: test`. Test mode is a property of the credential/environment rather
+    than a per-request flag, so an agent cannot rehearse a single call against production.
+  cross_ref: sandbox/peek-sandbox.yml
+reversibility:
+  grade: verified
+  detail: >-
+    Every write in the Peek Reseller API has a documented reversal, and the window is stated on the
+    product itself rather than left implicit.
+  write_surfaces:
+  - operation: POST /octo/bookings (reserve)
+    reversal: POST /octo/bookings/:uuid/cancel
+    window: >-
+      Until `utcExpiresAt` on the ON_HOLD booking. "If the booking is confirmed this endpoint will cancel
+      it, otherwise it will release the availability that was put on hold." An unconfirmed hold also
+      self-reverses: it moves to EXPIRED if not confirmed before the hold lapses.
+    extend: >-
+      POST /octo/bookings/:uuid/extend holds the availability longer while status is ON_HOLD.
+    docs: https://octodocs.peek.com/booking-flow/booking
+  - operation: POST /octo/bookings/:uuid/confirm
+    reversal: POST /octo/bookings/:uuid/cancel
+    window: >-
+      Until the option's `cancellationCutoff` elapses — a per-product duration exposed as
+      options[].cancellationCutoff (human string, e.g. "1 Hour") plus options[].cancellationCutoffAmount
+      and options[].cancellationCutoffUnit (unit values documented: `hour`). Peek's guidance is to read
+      the boolean `booking.cancellable` rather than compute the cutoff yourself. Attempting a cancel after
+      the cutoff returns UNPROCESSABLE_ENTITY.
+    refund_outcome: >-
+      The cancellation object reports `cancellation.refund` as FULL, PARTIAL or NONE, alongside
+      `cancellation.reason` and `cancellation.utcCancelledAt`.
+    docs: https://octodocs.peek.com/booking-flow/booking
+  - operation: PATCH /octo/bookings/:uuid (update)
+    reversal: PATCH again, or POST /octo/bookings/:uuid/cancel
+    window: >-
+      "You can update a booking before and after it has been confirmed as long as it hasn't been redeemed
+      or within the cancellation cutoff window ... If the booking can be cancelled, it can also be
+      updated." Peek explicitly prefers update over cancel-and-rebook.
+    docs: https://octodocs.peek.com/booking-flow/booking
+  - operation: POST /octo/webhooks (create webhook)
+    reversal: DELETE /octo/webhooks/:id
+    window: any time
+    docs: https://octodocs.peek.com/capabilities/webhooks
+  agent_note: >-
+    An agent can safely determine before acting whether a booking is still reversible by reading
+    `booking.cancellable`; it does not have to infer the window. That single boolean is what raises this
+    from `documented` to `verified`.

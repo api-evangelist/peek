@@ -1,0 +1,54 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/getting-started/capabilities + live probes of status/deprecation surfaces
+api: Peek Reseller API (OCTO)
+versioning:
+  scheme: capability-revision
+  current_version: null
+  url_versioning: false
+  header_versioning: false
+  policy_published: true
+  policy_url: https://octodocs.peek.com/getting-started/capabilities
+  statement: >-
+    "It's important to note that capabilities will NEVER introduce breaking changes, if they do then a new
+    capability will be written entirely. For example: octo/pricing2." Capability revisions carry an
+    auto-incrementing integer and are always backward compatible.
+  assessment: >-
+    A real, published backward-compatibility guarantee — but it is scoped to OCTO capabilities, not to the
+    API as a whole. There is no version identifier a client can pin, no changelog for the endpoints, and
+    no stated notice period.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no notice period, no Sunset/Deprecation headers (RFC 8594) and no deprecated
+    operations are documented. The only forward-compatibility commitment is the capability rule above.
+status_page:
+  published: false
+  probes:
+  - url: https://status.peek.com
+    status: '<no connection> (DNS/connect failure, one attempt, not retried)'
+  - url: https://peek.statuspage.io
+    status: 200
+    result: 'Atlassian Statuspage responds "Peek Public Status - Page Inactive" — the page exists but is disabled.'
+  - url: https://www.peekpro.com/status
+    status: 404
+  note: >-
+    Peek has provisioned an Atlassian Statuspage (peek.statuspage.io) and left it inactive. There is no
+    public uptime or incident surface for either the Reseller API or the MCP server, and the documented
+    remediation for INTERNAL_SERVER_ERROR therefore has nothing to check against.
+sla:
+  published: false
+  note: No SLA, uptime commitment or support-response target was found for the Reseller API.
+support:
+  api_access_request: ben.smithart@peek.com
+  help_center: https://www.peekpro.com/support
+  security: security@peek.com
+roadmap:
+  published: false
+  note: >-
+    No public API roadmap. Product-level release notes exist as a marketing page (Peek Pro 9,
+    https://www.peekpro.com/9) but are not dated, versioned or API-scoped.

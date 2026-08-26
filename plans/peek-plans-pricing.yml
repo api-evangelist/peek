@@ -1,0 +1,30 @@
+generated: '2026-08-26'
+method: searched
+source: https://www.peekpro.com/ sitemap + https://octodocs.peek.com/getting-started/request-access
+plan_count: 0
+plans: []
+pricing_model:
+  api_pricing_published: false
+  product_pricing_published: false
+  detail: >-
+    Peek publishes no pricing page of any kind. https://www.peekpro.com/pricing returns 404 and the
+    peekpro.com sitemap (473 URLs, fetched 2026-08-26) contains no pricing, plans or tiers page — only
+    blog posts about pricing strategy for operators. Peek Pro is sold through a demo/get-started funnel
+    (https://www.peekpro.com/get-started); the commercial model is widely described as commission on
+    bookings rather than a subscription, but Peek does not state it publicly, so nothing is asserted here.
+  api_access_cost: >-
+    The Peek Reseller API (OCTO) has no published price and no self-service tier. Access is granted by
+    emailing ben.smithart@peek.com; Peek's Product team responds. There is no free tier, trial tier or
+    rate-limited sandbox tier published.
+  mcp_server_cost: >-
+    The Peek Experiences MCP server at https://mcp.peek.com is described by Peek as "a free service" and
+    was verified callable anonymously on 2026-08-26 with no key and no payment.
+evidence:
+- url: https://www.peekpro.com/pricing
+  status: 404
+- url: https://www.peekpro.com/sitemap.xml
+  status: 200
+  result: 473 URLs, no pricing/plans page
+- url: https://www.peekpro.com/get-started
+  status: 200
+  result: demo/contact funnel

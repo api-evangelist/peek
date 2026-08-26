@@ -1,0 +1,68 @@
+generated: '2026-08-26'
+method: searched
+source: https://github.com/peek-travel/app-utilities/blob/main/changelog.md + registry.npmjs.org release metadata
+scope: sdk
+scheme: semver
+note: >-
+  IMPORTANT SCOPE NOTE. The Peek Reseller API (OCTO) itself publishes NO changelog, release notes or
+  version history — octodocs.peek.com has no changelog page and none appears in its llms.txt index. What
+  Peek does publish is a maintained, consumer-facing changelog for its first-party SDK,
+  @peektravel/app-utilities, recorded below. Release dates are taken from the npm registry's per-version
+  publish times, because the changelog file itself groups entries by version without dates.
+changelogs:
+- name: '@peektravel/app-utilities'
+  url: https://github.com/peek-travel/app-utilities/blob/main/changelog.md
+  registry: https://www.npmjs.com/package/@peektravel/app-utilities
+  current_version: 0.7.4
+  current_version_date: '2026-08-20'
+  first_release: '2026-06-23'
+  policy: >-
+    "Consumer-facing changelog ... records only changes a caller can observe or needs to act on."
+    Entries are tagged [breaking], [fix] or [additive], and each states what changed, why, and the caller
+    action required.
+  entries:
+  - version: 0.7.4
+    date: '2026-08-20'
+    tags: [fix, additive]
+    highlights:
+    - '[fix] /ui: unupgraded <ody-*> custom elements no longer flash raw text before registration.'
+    - '[additive] /ui exports whenOdysseyReady() readiness promise and registeredTags().'
+  - version: 0.7.3
+    date: '2026-08-20'
+  - version: 0.7.2
+    date: '2026-08-19'
+  - version: 0.7.1
+    date: '2026-08-19'
+  - version: 0.7.0
+    date: '2026-08-19'
+  - version: 0.6.1
+    date: '2026-08-19'
+  - version: 0.6.0
+    date: '2026-08-18'
+  - version: 0.5.4
+    date: '2026-08-13'
+  - version: 0.5.3
+    date: '2026-07-30'
+  - version: 0.5.2
+    date: '2026-07-29'
+- name: '@peektravel/app-cli'
+  url: https://www.npmjs.com/package/@peektravel/app-cli
+  current_version: 0.7.5
+  current_version_date: '2026-07-30'
+  first_release: '2026-07-08'
+  changelog_file: false
+- name: n8n-nodes-peek-pro
+  url: https://github.com/peek-travel/n8n-nodes-peek-pro/blob/main/CHANGELOG.md
+  current_version: 0.4.3
+  current_version_date: '2026-07-23'
+  first_release: '2025-11-25'
+product_release_notes:
+  url: https://www.peekpro.com/9
+  title: Peek Pro 9
+  dated: false
+  note: >-
+    A marketing release page for the Peek Pro 9 platform update (40+ new features), naming the Developer
+    Hub, n8n-powered AI agents and 15+ integrations. It carries no dates and no version history, so it is
+    not a changelog.
+gaps:
+- The public API surface (OCTO Reseller API, MCP server) has no changelog of any kind.

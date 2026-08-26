@@ -1,0 +1,37 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/getting-started/headers + https://octodocs.peek.com/booking-flow/booking + https://octodocs.peek.com/capabilities/webhooks
+api: Peek Reseller API (OCTO)
+sandbox_published: partial
+modes:
+- name: test
+  signal_header: 'Octo-Env: test'
+  object_flag: 'booking.testMode: true'
+  description: >-
+    Requests made in test return Octo-Env: test and bookings created carry testMode: true. Peek documents
+    the signals but does NOT document how a reseller enters test mode — there is no test/live key prefix,
+    no environment host and no per-request flag published. The mode appears to be a property of the
+    credential Peek issues.
+- name: live
+  signal_header: 'Octo-Env: live'
+  object_flag: 'booking.testMode: false'
+separate_base_url: false
+test_credentials_published: false
+test_cards_published: false
+test_clock: false
+fixtures_or_triggers: false
+webhook_testing:
+  guidance: >-
+    "We recommend for testing you can use ngrok to create an endpoint which connects to your localhost.
+    You can then make test bookings with the same credentials and see the webhook requests arrive."
+  tool_recommended: https://ngrok.com/
+  note: The same credentials are used for test webhooks — Peek does not issue a separate sandbox key.
+app_platform_sandbox:
+  note: >-
+    For the (separate) Peek app platform, the @peektravel/app-cli `peek dev` command starts a Cloudflare
+    quick tunnel and registers the ephemeral URL as the test app's base_url, and phoenix_starter_kit ships
+    an app-sandbox.json. That is a local development harness for apps embedded in Peek Pro, not a sandbox
+    for the Reseller API.
+gaps:
+- No published test API key, no sandbox host, no test data set, no way to self-provision test access.
+- Test mode is observable in responses but not documented as something a reseller can switch on.

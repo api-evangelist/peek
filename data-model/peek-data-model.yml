@@ -1,0 +1,123 @@
+generated: '2026-08-26'
+method: derived
+source: https://octodocs.peek.com/ (object reference tables in booking-flow/products, availability, booking)
+api: Peek Reseller API (OCTO)
+note: >-
+  Derived from the field tables Peek publishes for each object. Peek ships no OpenAPI or JSON Schema, so
+  this graph is read out of the documented response shapes, not out of a machine-readable contract.
+id_conventions:
+- entity: Product / Option
+  prefix: 'av_'
+  example: av_123
+- entity: Booking / UnitItem
+  format: UUID v4
+  example: 89fe0192-ddcd-430a-b285-e1396a4725d2
+- entity: Availability
+  format: composite string — <yyyyMMddHHmmss>_<duration>_<uuid>
+  example: 20200701143000_720_5214a9d6-5271-4958-a306-14a07e4084c6
+- entity: Webhook
+  prefix: 'octohook_'
+  example: octohook_123
+entities:
+- name: Product
+  description: The activity or rental offered by a supplier.
+  key: id
+  fields: [id, internalName, reference, locale, timeZone, allowFreesale, availabilityRequired, availabilityType, deliveryFormats, deliveryMethods, redemptionMethod, capabilities, options]
+  relationships:
+  - has_many: Option
+    via: options[]
+  - has_many: Capability
+    via: capabilities[]
+- name: Option
+  description: >-
+    Additional configuration on a product. Peek currently exposes exactly one option per product.
+  key: id
+  fields: [id, default, internalName, reference, restrictions, availabilityLocalStartTimes, cancellationCutoff, cancellationCutoffAmount, cancellationCutoffUnit, requiredContactFields, units]
+  relationships:
+  - belongs_to: Product
+    via: productId
+  - has_many: Unit
+    via: units[]
+- name: Unit
+  description: A bookable item associated with the product option (a rental option, or a single activity).
+  key: id
+  fields: [id, internalName, reference, type, restrictions]
+  relationships:
+  - belongs_to: Option
+    via: optionId
+- name: Capability
+  description: An OCTO extension enabled on the product (octo/pricing, octo/webhooks).
+  key: id
+  fields: [id, revision, required, dependencies, docs, default]
+  relationships:
+  - belongs_to: Product
+    via: capabilities[]
+- name: Availability
+  description: >-
+    A bookable departure slot. Returned per-day by /availability/calendar (cached, indicative capacity)
+    and per-departure by /octo/availability, which is the call that yields the availabilityId needed to
+    reserve.
+  key: id
+  fields: [id, localDateTimeStart, localDateTimeEnd, allDay, openingHours, status, vacancies, capacity]
+  relationships:
+  - belongs_to: Product
+    via: productId
+  - belongs_to: Option
+    via: optionId
+- name: Booking
+  description: A reservation moving through ON_HOLD -> CONFIRMED, or to EXPIRED / CANCELLED.
+  key: uuid
+  fields: [uuid, testMode, resellerReference, supplierReference, status, utcExpiresAt, utcConfirmedAt, productId, optionId, cancellable, cancellation, freesale, notes, availability, contact, deliveryMethods, voucher, unitItems]
+  relationships:
+  - belongs_to: Product
+    via: productId
+  - belongs_to: Option
+    via: optionId
+  - has_one: Availability
+    via: availability
+  - has_one: Contact
+    via: contact
+  - has_one: Voucher
+    via: voucher
+  - has_many: UnitItem
+    via: unitItems[]
+  - has_one: Cancellation
+    via: cancellation
+- name: UnitItem
+  description: A line item per unit within the booking; each carries its own ticket.
+  key: uuid
+  fields: [uuid, resellerReference, supplierReference, unitId, ticket]
+  relationships:
+  - belongs_to: Booking
+    via: unitItems[]
+  - belongs_to: Unit
+    via: unitId
+- name: Voucher
+  description: A single QR code usable for the whole booking.
+  fields: [redemptionMethod, utcRedeemedAt, deliveryOptions]
+  relationships:
+  - belongs_to: Booking
+    via: voucher
+- name: Cancellation
+  description: Why and when a booking was cancelled, and what was refunded.
+  fields: [reason, refund, utcCancelledAt]
+  enums:
+    refund: [FULL, PARTIAL, NONE]
+  relationships:
+  - belongs_to: Booking
+    via: cancellation
+- name: Contact
+  description: Guest contact details captured on the booking.
+  fields: [fullName, emailAddress, phoneNumber, locales, country]
+  relationships:
+  - belongs_to: Booking
+    via: contact
+- name: Webhook
+  description: A subscriber callback registration.
+  key: id
+  fields: [id, event, url]
+enums:
+  booking_status: [ON_HOLD, EXPIRED, CONFIRMED, CANCELLED]
+  cancellation_refund: [FULL, PARTIAL, NONE]
+  cancellation_cutoff_unit: [hour]
+  webhook_event: [booking_update]

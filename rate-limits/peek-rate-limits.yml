@@ -1,0 +1,25 @@
+generated: '2026-08-26'
+method: searched
+source: https://octodocs.peek.com/ (full documentation corpus incl. llms-full.txt, fetched 2026-08-26)
+limit_count: 0
+rate_limits: []
+response_headers: []
+exhaustion_status: null
+note: >-
+  Peek publishes no rate limits for either public API. A full-text search of the entire Peek Reseller API
+  documentation corpus (136,961 bytes of llms-full.txt covering every page in llms.txt) returns zero
+  matches for "rate limit", "throttle", "429" or "too many" — and the documented error-code table has no
+  entry for a limit being exceeded. The Errors page states the API responds with only 200 or 400, which
+  leaves no documented signal an agent could back off on. No RateLimit-* or X-RateLimit-* headers are
+  described. The MCP server at mcp.peek.com publishes no limits either.
+observed:
+- url: https://octo.peek.com/integrations/octo/products
+  method: GET
+  authenticated: false
+  status: 401
+  rate_limit_headers_present: false
+  note: >-
+    Unauthenticated probe; no RateLimit-*, X-RateLimit-* or Retry-After header was returned. A single
+    probe cannot establish that limits do not exist server-side — only that none are advertised.
+gaps:
+- No published limits, no runtime headers, no documented 429 behaviour, no documented Retry-After.
