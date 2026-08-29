@@ -10,6 +10,17 @@ description: >-
   covering products, availability, booking, pricing and booking webhooks — plus a free public remote MCP
   server at mcp.peek.com that gives AI assistants live experience search, detail and availability, and a
   Developer Hub with app SDKs, a CLI and an n8n connector for building apps embedded inside Peek Pro.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/63c9874aa33ce9a6f0ab0e91/63c9874aa33ce95c4eab0ecc_peek-pro-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/peek/refs/heads/main/apis.yml
 x-type: company
