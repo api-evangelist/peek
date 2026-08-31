@@ -34,6 +34,19 @@ tags:
 - Tourism
 - Booking
 - Reservations
+- Experience
+- Tours and Activities
+- Payments
+- Marketplace
+- MCP
+- OCTO
+- Software-as-a-Service
+tags_raw:
+- Company
+- Travel
+- Tourism
+- Booking
+- Reservations
 - Experiences
 - Tours and Activities
 - Payments
@@ -57,6 +70,13 @@ apis:
   humanURL: https://octodocs.peek.com/
   baseURL: https://octo.peek.com/integrations/octo
   tags:
+  - Booking
+  - Reservations
+  - Availability
+  - Pricing
+  - Webhook
+  - OCTO
+  tags_raw:
   - Booking
   - Reservations
   - Availability
@@ -89,6 +109,12 @@ apis:
   humanURL: https://peek.com/mcp
   baseURL: https://mcp.peek.com
   tags:
+  - MCP
+  - Artificial Intelligence
+  - Agents
+  - Experience
+  - Search
+  tags_raw:
   - MCP
   - AI
   - Agents
