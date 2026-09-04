@@ -21,6 +21,21 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: open
+  trial: false
+  try_now: false
+  public: true
+  label: Open access
+  confidence: medium
+  source:
+  - authentication
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-09-02'
+  method: derived
 image: https://cdn.prod.website-files.com/63c9874aa33ce9a6f0ab0e91/63c9874aa33ce95c4eab0ecc_peek-pro-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/peek/refs/heads/main/apis.yml
 x-type: company
