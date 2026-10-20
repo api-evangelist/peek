@@ -33,24 +33,6 @@ capabilities:
 tools_file: mcp/peek-mcp-tools.json
 tool_count: 6
 tools:
-- name: search_experiences
-  description: Search for travel experiences with comprehensive filtering options. Returns available categories,
-    tags, and regions with IDs for further filtering.
-  required: []
-  parameters:
-  - query
-  - regionId
-  - categoryId
-  - tagId
-  - latLng
-  - startDate
-  - endDate
-- name: experience_details
-  description: Get detailed information about a specific experience by ID
-  required:
-  - id
-  parameters:
-  - id
 - name: experience_availability
   description: Get availability information for a specific experience including dates, times, and pricing
   required:
@@ -63,12 +45,12 @@ tools:
   - quantity
   - startDate
   - endDate
-- name: search_regions
-  description: Search for regions by name
-  required: []
+- name: experience_details
+  description: Get detailed information about a specific experience by ID
+  required:
+  - id
   parameters:
-  - query
-  - limit
+  - id
 - name: list_tags
   description: List all category tags
   required: []
@@ -79,6 +61,24 @@ tools:
   - id
   parameters:
   - id
+- name: search_experiences
+  description: Search for travel experiences with comprehensive filtering options. Returns available categories,
+    tags, and regions with IDs for further filtering.
+  required: []
+  parameters:
+  - query
+  - regionId
+  - categoryId
+  - tagId
+  - latLng
+  - startDate
+  - endDate
+- name: search_regions
+  description: Search for regions by name
+  required: []
+  parameters:
+  - query
+  - limit
 x-evidence:
 - url: https://mcp.peek.com
   method: POST initialize
@@ -116,3 +116,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 6
