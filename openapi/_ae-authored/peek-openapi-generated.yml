@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: Peek API
+  version: '2026-10-20'
+  description: 'GENERATED FROM DOCUMENTATION by API Evangelist on 2026-10-20: 3 operation(s) read from 2 public documentation page(s) (each operation
+    names its page in x-source). This is not the provider''s published contract; Peek has published no machine-readable contract that the pipeline
+    could find. Engine: anthropic.'
+  x-evidence-tiers:
+    code-example: 0
+    documentation: 3
+    pages-with-code: 0
+    pages-read: 2
+  x-generated-from: documentation
+  x-provenance: generated
+  x-authored-by: API Evangelist
+  x-generated: '2026-10-20'
+  x-generator: generate-contract-from-docs.py
+  x-engine: anthropic
+  x-sources:
+  - https://octodocs.peek.com/capabilities/webhooks
+  - https://octodocs.peek.com/capabilities-1/webhooks
+servers:
+- url: https://octo.peek.com
+paths:
+  /integrations/octo/webhooks:
+    get:
+      operationId: get_integrations_octo_webhooks
+      tags:
+      - Integrations
+      summary: List all webhooks
+      x-source: https://octodocs.peek.com/capabilities/webhooks
+      responses:
+        '200':
+          description: Success (status as documented)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIntegrationsOctoWebhooksResponse'
+      x-evidence:
+        kind: documentation
+    post:
+      operationId: post_integrations_octo_webhooks
+      tags:
+      - Integrations
+      summary: Create a new webhook
+      x-source: https://octodocs.peek.com/capabilities/webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostIntegrationsOctoWebhooksRequest'
+      responses:
+        '200':
+          description: Success (status as documented)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostIntegrationsOctoWebhooksResponse'
+      x-evidence:
+        kind: documentation
+  /integrations/octo/webhooks/{id}:
+    delete:
+      operationId: delete_integrations_octo_webhooks_id
+      tags:
+      - Integrations
+      summary: Delete an existing webhook
+      x-source: https://octodocs.peek.com/capabilities/webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success (status as documented)
+      x-evidence:
+        kind: documentation
+components:
+  schemas:
+    GetIntegrationsOctoWebhooksResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The webhook id
+        event:
+          type: string
+          description: The event that will trigger the webhook
+        url:
+          type: string
+          description: The URL to call when the webhook is triggered
+    PostIntegrationsOctoWebhooksRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL to call when the webhook is triggered
+        event:
+          type: string
+          description: The event that will trigger the webhook
+      required:
+      - url
+      - event
+    PostIntegrationsOctoWebhooksResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The webhook id
+        event:
+          type: string
+          description: The event that will trigger the webhook
+        url:
+          type: string
+          description: The URL to call when the webhook is triggered
+tags:
+- name: Integrations

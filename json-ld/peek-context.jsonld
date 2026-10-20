@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "@vocab": "https://peek.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "peek": "https://peek.com/schema#",
+    "GetIntegrationsOctoWebhooksResponse": "peek:GetIntegrationsOctoWebhooksResponse",
+    "id": {
+      "@id": "peek:id",
+      "@type": "xsd:string"
+    },
+    "event": {
+      "@id": "peek:event",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "peek:url",
+      "@type": "xsd:string"
+    },
+    "PostIntegrationsOctoWebhooksRequest": "peek:PostIntegrationsOctoWebhooksRequest",
+    "PostIntegrationsOctoWebhooksResponse": "peek:PostIntegrationsOctoWebhooksResponse"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Peek API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Peek's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/_ae-authored/peek-openapi-generated.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/_ae-authored/peek-openapi-generated.yml"
+  ]
+}

@@ -1,6 +1,7 @@
 generated: '2026-08-26'
 method: searched
 source: https://www.peekpro.com/ sitemap + https://octodocs.peek.com/getting-started/request-access
+name: Peek API Plans
 plan_count: 0
 plans: []
 pricing_model:

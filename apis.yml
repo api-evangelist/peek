@@ -1,15 +1,15 @@
 aid: peek
+
 name: Peek
-description: >-
-  Peek is a San Francisco-based travel technology company founded in 2012 by Ruzwana Bashir and Oskar
-  Bruening. It operates two connected surfaces: peek.com, a consumer marketplace of 300,000+ bookable
-  tours, activities, rentals and attractions, and Peek Pro, the booking and back-office operating system
-  used by tour, activity, rental and attraction operators for reservations, capacity and inventory,
-  waivers, payments, dynamic pricing and reporting. Its public API surface is the Peek Reseller API — an
-  implementation of the OCTO (Open Connectivity for Tourism) open standard for the experiences industry,
-  covering products, availability, booking, pricing and booking webhooks — plus a free public remote MCP
-  server at mcp.peek.com that gives AI assistants live experience search, detail and availability, and a
-  Developer Hub with app SDKs, a CLI and an n8n connector for building apps embedded inside Peek Pro.
+
+description: 'Peek is a San Francisco-based travel technology company founded in 2012 by Ruzwana Bashir and Oskar Bruening. It operates two connected
+  surfaces: peek.com, a consumer marketplace of 300,000+ bookable tours, activities, rentals and attractions, and Peek Pro, the booking and back-office
+  operating system used by tour, activity, rental and attraction operators for reservations, capacity and inventory, waivers, payments, dynamic
+  pricing and reporting. Its public API surface is the Peek Reseller API — an implementation of the OCTO (Open Connectivity for Tourism) open
+  standard for the experiences industry, covering products, availability, booking, pricing and booking webhooks — plus a free public remote MCP
+  server at mcp.peek.com that gives AI assistants live experience search, detail and availability, and a Developer Hub with app SDKs, a CLI and
+  an n8n connector for building apps embedded inside Peek Pro.'
+
 deliveryModel:
   model: saas
   open_source: false
@@ -21,6 +21,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: open
@@ -36,13 +37,21 @@ accessModel:
   - sandbox
   generated: '2026-09-02'
   method: derived
+
 image: https://cdn.prod.website-files.com/63c9874aa33ce9a6f0ab0e91/63c9874aa33ce95c4eab0ecc_peek-pro-logo.svg
+
 url: https://raw.githubusercontent.com/api-evangelist/peek/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:secondary-market
+
 specificationVersion: '0.20'
+
 created: '2026-08-26'
+
 modified: '2026-08-26'
+
 tags:
 - Company
 - Travel
@@ -56,6 +65,7 @@ tags:
 - MCP
 - OCTO
 - Software-as-a-Service
+
 tags_raw:
 - Company
 - Travel
@@ -69,78 +79,26 @@ tags_raw:
 - MCP
 - OCTO
 - SaaS
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
-apis:
-- name: Peek Reseller API (OCTO)
-  description: >-
-    Peek Pro's implementation of the OCTO API specification, the open API standard for the experiences
-    industry. Resellers list a supplier's products, check the availability calendar and per-departure
-    availability, reserve and confirm bookings with QR-coded vouchers, update, extend, cancel and look up
-    bookings, and register booking webhooks. Two optional OCTO capabilities are implemented — octo/pricing
-    and octo/webhooks. Access is by an OCTO API Key issued by Peek on request.
-  humanURL: https://octodocs.peek.com/
-  baseURL: https://octo.peek.com/integrations/octo
-  tags:
-  - Booking
-  - Reservations
-  - Availability
-  - Pricing
-  - Webhook
-  - OCTO
-  tags_raw:
-  - Booking
-  - Reservations
-  - Availability
-  - Pricing
-  - Webhooks
-  - OCTO
-  properties:
-  - type: Documentation
-    url: https://octodocs.peek.com/
-  - type: GettingStarted
-    url: https://octodocs.peek.com/getting-started/basics
-  - type: LLMsTxt
-    url: llms/peek-llms.txt
-  - type: Authentication
-    url: authentication/peek-authentication.yml
-  - type: ErrorCatalog
-    url: errors/peek-problem-types.yml
-  - type: Conventions
-    url: conventions/peek-conventions.yml
-  - type: Webhooks
-    url: asyncapi/peek-octo-webhooks.yml
-  - type: DataModel
-    url: data-model/peek-data-model.yml
-- name: Peek Experiences MCP Server
-  description: >-
-    A free, public, anonymous remote MCP server that gives AI assistants access to Peek.com's catalog of
-    300,000+ verified experiences with real-time availability and pricing. Six tools cover experience
-    search with region/category/tag/date/geo filters, experience detail, availability, region search, tag
-    listing and an embeddable activity-tile widget. Streamable HTTP transport; no authentication required.
-  humanURL: https://peek.com/mcp
-  baseURL: https://mcp.peek.com
-  tags:
-  - MCP
-  - Artificial Intelligence
-  - Agents
-  - Experience
-  - Search
-  tags_raw:
-  - MCP
-  - AI
-  - Agents
-  - Experiences
-  - Search
-  properties:
-  - type: MCPServer
-    url: mcp/peek-mcp.yml
-  - type: Documentation
-    url: https://github.com/peek-travel/mcp-intro
+
 common:
+- type: Spectral
+  url: rules/peek-rules.yml
+- type: JSONLD
+  url: json-ld/peek-context.jsonld
+- type: Vocabulary
+  url: vocabulary/peek-vocabulary.yml
+- type: Hosts
+  url: hosts/peek-hosts.yml
+- type: IntegrationEdges
+  url: integrations/peek-integration-edges.yml
+- type: Vendors
+  url: vendors/peek-vendors.yml
 - type: Website
   url: https://www.peek.com/
 - type: DeveloperPortal
@@ -197,16 +155,109 @@ common:
   url: asyncapi/peek-octo-webhooks.yml
 - type: Plans
   url: plans/peek-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/peek-rate-limits.yml
 - type: DataModel
   url: data-model/peek-data-model.yml
 - type: ChangeLog
   url: changelog/peek-changelog.yml
 - type: Sandbox
   url: sandbox/peek-sandbox.yml
+
+apis:
+- name: Peek Reseller API (OCTO)
+  description: Peek Pro's implementation of the OCTO API specification, the open API standard for the experiences industry. Resellers list a supplier's
+    products, check the availability calendar and per-departure availability, reserve and confirm bookings with QR-coded vouchers, update, extend,
+    cancel and look up bookings, and register booking webhooks. Two optional OCTO capabilities are implemented — octo/pricing and octo/webhooks.
+    Access is by an OCTO API Key issued by Peek on request.
+  humanURL: https://octodocs.peek.com/
+  baseURL: https://octo.peek.com/integrations/octo
+  tags:
+  - Booking
+  - Reservations
+  - Availability
+  - Pricing
+  - Webhook
+  - OCTO
+  tags_raw:
+  - Booking
+  - Reservations
+  - Availability
+  - Pricing
+  - Webhooks
+  - OCTO
+  properties:
+  - type: Documentation
+    url: https://octodocs.peek.com/
+  - type: GettingStarted
+    url: https://octodocs.peek.com/getting-started/basics
+  - type: LLMsTxt
+    url: llms/peek-llms.txt
+  - type: Authentication
+    url: authentication/peek-authentication.yml
+  - type: ErrorCatalog
+    url: errors/peek-problem-types.yml
+  - type: Conventions
+    url: conventions/peek-conventions.yml
+  - type: Webhooks
+    url: asyncapi/peek-octo-webhooks.yml
+  - type: DataModel
+    url: data-model/peek-data-model.yml
+  aid: peek:peek-reseller-api-octo
+- name: Peek Experiences MCP Server
+  description: A free, public, anonymous remote MCP server that gives AI assistants access to Peek.com's catalog of 300,000+ verified experiences
+    with real-time availability and pricing. Six tools cover experience search with region/category/tag/date/geo filters, experience detail, availability,
+    region search, tag listing and an embeddable activity-tile widget. Streamable HTTP transport; no authentication required.
+  humanURL: https://peek.com/mcp
+  baseURL: https://mcp.peek.com
+  tags:
+  - MCP
+  - Artificial Intelligence
+  - Agents
+  - Experience
+  - Search
+  tags_raw:
+  - MCP
+  - AI
+  - Agents
+  - Experiences
+  - Search
+  properties:
+  - type: MCPServer
+    url: mcp/peek-mcp.yml
+  - type: Documentation
+    url: https://github.com/peek-travel/mcp-intro
+  aid: peek:peek-experiences-mcp-server
+- aid: peek:peek-api
+  name: Peek API
+  description: 'Peek API as documented publicly: 3 operations. Contract generated from the documentation by API Evangelist (2026-10-20); not the
+
+    provider''s own document.'
+  humanURL: https://octodocs.peek.com/capabilities/webhooks
+  baseURL: https://octo.peek.com
+  properties:
+  - type: OpenAPI
+    url: openapi/_ae-authored/peek-openapi-generated.yml
+    x-provenance: generated
+  - type: JSONSchema
+    url: json-schema/peek-get-integrations-octo-webhooks-response-schema.json
+  - type: JSONSchema
+    url: json-schema/peek-post-integrations-octo-webhooks-response-schema.json
+  - type: JSONSchema
+    url: json-schema/peek-post-integrations-octo-webhooks-request-schema.json
+
+
+x-coverage:
+  state: unreadable
+  reason: no-machine-readable-spec
+  method: derived
+  generated: '2026-10-20'
+  generator: derive-coverage.py (pre-flight evidence)
+  detail: >-
+    the company publishes developer documentation but serves no machine-readable contract from it
+  evidence:
+  - url: https://www.peek.com/
+    status: 200
 x-enrichment:
-  date: '2026-08-26'
+  date: '2026-10-20'
   status: enriched
-  artifacts_added: 20
-  pass: local-v1
+  artifacts_added: 6
+  pass: local-v5

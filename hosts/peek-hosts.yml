@@ -1,0 +1,165 @@
+generated: '2026-10-20'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 12
+  own: 8
+  other_domain: 3
+  platform: 1
+  roles:
+  - api
+  - data
+  - identity
+  - other
+  - partner
+  - portal
+  - source
+  - website
+hosts:
+- host: api.peek.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: peek.com
+  role: api
+  relation: own
+- host: api.peekpro.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: peekpro.com
+  role: api
+  relation: other-domain
+- host: data.peek.com
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - well-known
+  types: []
+  serves: []
+  title: Online Booking Software - Rental &amp; Tour Operators | Peek Pro
+  status: 200
+  registrable_domain: peek.com
+  role: data
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: mcp.peek.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: peek.com
+  role: other
+  relation: own
+- host: octo.peek.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  registrable_domain: peek.com
+  role: other
+  relation: own
+- host: octo.travel
+  found_by:
+  - docs-index
+  types: []
+  serves:
+  - docs
+  registrable_domain: octo.travel
+  role: other
+  relation: other-domain
+- host: octodocs.peek.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  serves:
+  - docs
+  - documentation
+  - hosting
+  vendor: gitbook
+  registrable_domain: peek.com
+  role: portal
+  relation: own
+- host: partner.peek.com
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - well-known
+  types: []
+  serves: []
+  title: Online Booking Software - Rental &amp; Tour Operators | Peek Pro
+  status: 200
+  registrable_domain: peek.com
+  role: partner
+  relation: own
+- host: peek.com
+  found_by:
+  - apis[]
+  - probed
+  - well-known
+  types: []
+  serves:
+  - docs
+  registrable_domain: peek.com
+  role: other
+  relation: own
+- host: www.peek.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  serves:
+  - cdn
+  vendor: cloudflare
+  registrable_domain: peek.com
+  role: website
+  relation: own
+- host: www.peekpro.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - SignUp
+  - Support
+  - Blog
+  - TermsOfService
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: peekpro.com
+  role: identity
+  relation: other-domain

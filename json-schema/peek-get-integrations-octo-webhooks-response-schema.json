@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/peek/main/json-schema/peek-get-integrations-octo-webhooks-response-schema.json",
+  "title": "GetIntegrationsOctoWebhooksResponse",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/_ae-authored/peek-openapi-generated.yml#/components/schemas/GetIntegrationsOctoWebhooksResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The webhook id"
+    },
+    "event": {
+      "type": "string",
+      "description": "The event that will trigger the webhook"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL to call when the webhook is triggered"
+    }
+  }
+}
