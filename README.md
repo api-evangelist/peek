@@ -64,5 +64,142 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Peek is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/peek-stock
+Peek is a San Francisco-based travel technology company founded in 2012 by Ruzwana Bashir and Oskar Bruening. It operates two connected surfaces: peek.com, a consumer marketplace of 300,000+ bookable tours, activities, rentals and attractions, and Peek Pro, the booking and back-office operating system used by tour, activity, rental and attraction operators for reservations, capacity and inventory, waivers, payments, dynamic pricing and reporting. Its public API surface is the Peek Reseller API — an implementation of the OCTO (Open Connectivity for Tourism) open standard for the experiences industry, covering products, availability, booking, pricing and booking webhooks — plus a free public remote MCP server at mcp.peek.com that gives AI assistants live experience search, detail and availability, and a Developer Hub with app SDKs, a CLI and an n8n connector for building apps embedded inside Peek Pro.
+
+**Areas:** Company · Travel · Tourism · Booking · Reservations · Experience · Tours and Activities · Payments · Marketplace · MCP · OCTO · Software-as-a-Service
+
+## Peek on APIs.io
+
+Everything profiled for Peek is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/peek/](https://apis.io/providers/peek/)** — or go straight to one of the APIs or properties below.
+
+### APIs (3)
+
+- [Peek Reseller API (OCTO)](https://apis.io/apis/peek/peek-reseller-api-octo/) — Peek Pro's implementation of the OCTO API specification, the open API standard for the experiences industry. Resellers list a supplier's products, check the…
+- [Peek Experiences MCP Server](https://apis.io/apis/peek/peek-experiences-mcp-server/) — A free, public, anonymous remote MCP server that gives AI assistants access to Peek.com's catalog of 300,000+ verified experiences with real-time…
+- [Peek API](https://apis.io/apis/peek/peek-api/) — Peek API as documented publicly: 3 operations. Contract generated from the documentation by API Evangelist (2026-10-20); not the provider's own document.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Peek Octo Webhooks](https://apis.io/asyncapis/peek/peek-octo-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Experiences MCP](https://apis.io/servers/peek/experiences-mcp/)
+
+#### JSON Schema (3)
+
+The data models the API reads and writes.
+
+- [GetIntegrationsOctoWebhooksResponse](https://apis.io/schemas/peek/peek-get-integrations-octo-webhooks-response/)
+- [PostIntegrationsOctoWebhooksRequest](https://apis.io/schemas/peek/peek-post-integrations-octo-webhooks-request/)
+- [PostIntegrationsOctoWebhooksResponse](https://apis.io/schemas/peek/peek-post-integrations-octo-webhooks-response/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Peek Context](https://apis.io/jsonld/peek/peek-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Peek API Rules](https://apis.io/rules/peek/peek-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Peek Authentication](https://apis.io/security/peek/peek-authentication/)
+- [Peek Domain Security](https://apis.io/security/peek/peek-domain-security/)
+- [Peek Vulnerability Disclosure](https://apis.io/security/peek/peek-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Peek Plans Pricing](https://apis.io/plans/peek/peek-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Peek Rate Limits](https://apis.io/rate-limits/peek/peek-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.peek.com/)
+- [Documentation](https://octodocs.peek.com/)
+- [Getting started](https://octodocs.peek.com/getting-started/basics)
+- [API reference](https://octodocs.peek.com/booking-flow/products)
+- [Sign up](https://www.peekpro.com/get-started)
+- [Support](https://www.peekpro.com/support)
+- [Blog](https://www.peekpro.com/blog)
+- [Terms of service](https://www.peekpro.com/terms)
+- [Privacy policy](https://www.peekpro.com/privacy-policy)
+- [GitHub](https://github.com/peek-travel)
+
+## API Evangelist rating
+
+**Kin Score 48.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 78.6 |
+| Access clarity | 34.2 |
+
+**Agent readiness 33.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 27.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/peek/](https://apis.io/providers/peek/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Peek: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/peek/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
